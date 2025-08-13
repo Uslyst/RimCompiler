@@ -83,9 +83,9 @@ namespace RimCompiler
                 PathManager.BackupFolder,
                 PathManager.ModDllName + (doBackupName ? $" ({backupName})" : "")
             );
-
+ 
             string assembliesFile = Path.Combine(PathManager.AssembliesFolder, PathManager.ModDllName);
-
+           
             foreach (Process process in Process.GetProcessesByName("RimWorldWin64"))
             {
                 try
@@ -100,7 +100,11 @@ namespace RimCompiler
                 }
             }
 
-            File.Copy(assembliesFile, targetPath, !doBackupName);
+          
+            if(File.Exists(assembliesFile))
+            {
+                File.Copy(assembliesFile, targetPath, !doBackupName);
+            }
 
             File.Copy(PathManager.DebugDll, assembliesFile, true);
 
